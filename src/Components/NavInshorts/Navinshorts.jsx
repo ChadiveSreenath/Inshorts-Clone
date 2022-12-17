@@ -2,11 +2,11 @@ import React from 'react'
 import "./Navinshorts.css"
 import Sidebar from "./Sidebar"
 
-const Navinshorts = () => {
+const Navinshorts = ({setCategory}) => {
     return (
         <div className='nav'>
             <div className='icon'>
-                <Sidebar />
+                <Sidebar setCategory={setCategory} />
             </div>
 
             <img src="https://assets.inshorts.com/website_assets/images/logo_inshorts.png" alt="Inshorts Icon"
