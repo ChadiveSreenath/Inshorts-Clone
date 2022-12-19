@@ -24,13 +24,15 @@ const NewsContent = ({ newsArray }) => {
                     />
                 </div>
 
-                {
-                    newsArray.map((newsItem) => (
-                        <NewsCard newsItem={newsItem} key={newsItem.title} />
-                    ))
-                }
+                <div className="newsCardContainer" sx={{sm:{marginTop:"5rem"}}}>
+                    {
+                        newsArray.map((newsItem) => (
+                            <NewsCard newsItem={newsItem} key={newsItem.title} />
+                        ))
+                    }
+                </div>
 
-              
+
 
             </div>
 

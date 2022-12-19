@@ -9,8 +9,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Categories from '../Data/Categories';
+import SidebarItem from '../SidebarItem/SidebarItem';
 
-export default function SwipeableTemporaryDrawer({ setCategory }) {
+export default function SwipeableTemporaryDrawer({ setCategory, category }) {
     const [state, setState] = React.useState({
         left: false,
     });
@@ -45,9 +46,11 @@ export default function SwipeableTemporaryDrawer({ setCategory }) {
             <Divider />
             <List>
                 {Categories.map((text) => (
-                    <ListItem button key={text} onClick={() => setCategory(text)} style={{ height: "40px", borderRadius: "8px" }} >
-                        <ListItemText primary={text} />
-                    </ListItem>
+                    <SidebarItem category={category} selectedCategory={text} key={text}>
+                        <ListItem button key={text} onClick={() => setCategory(text)} style={{ height: "40px", borderRadius: "8px" }} >
+                            <ListItemText primary={text} />
+                        </ListItem>
+                    </SidebarItem>
                 ))}
             </List>
         </Box>
