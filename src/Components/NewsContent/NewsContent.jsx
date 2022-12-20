@@ -1,11 +1,15 @@
 import { Container } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import NewsCard from '../NewsCard/NewsCard'
 import "./NewsContent.css"
 
 const NewsContent = ({ newsArray }) => {
+
+
+
+
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="md" >
             <div className='content'>
 
                 <div className="downloadMessage">
@@ -24,7 +28,7 @@ const NewsContent = ({ newsArray }) => {
                     />
                 </div>
 
-                <div className="newsCardContainer" sx={{sm:{marginTop:"5rem"}}}>
+                <div className="newsCardContainer" sx={{ sm: { marginTop: "5rem" } }}>
                     {
                         newsArray.map((newsItem) => (
                             <NewsCard newsItem={newsItem} key={newsItem.title} />
@@ -36,7 +40,7 @@ const NewsContent = ({ newsArray }) => {
 
             </div>
 
-        </Container>
+        </Container >
     )
 }
 

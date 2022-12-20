@@ -5,3 +5,9 @@ a:active{
     text-decoration: none;
     color: inherit;
 }
+.circular{
+    display: flex;
+    justify-content: center;
+    margin-top: 6rem;
+    margin-bottom: 70px;
+}

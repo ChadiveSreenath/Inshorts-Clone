@@ -1,29 +1,51 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import './App.css';
-import Footer from './Components/Footer/Footer';
-import Navinshorts from './Components/NavInshorts/Navinshorts';
-import NewsContent from './Components/NewsContent/NewsContent';
+import { CircularProgress } from "@mui/material";
+import { useEffect, useState } from "react";
+import "./App.css";
+import Footer from "./Components/Footer/Footer";
+import Navinshorts from "./Components/NavInshorts/Navinshorts";
+import NewsContent from "./Components/NewsContent/NewsContent";
 
 function App() {
+  const [category, setCategory] = useState(null);
+  const [newsArray, setnewsArray] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
-  const [category, setCategory] = useState("general")
-  const [newsArray, setnewsArray] = useState([])
-
-  const getData = async () => {
-    let data = await fetch(`http://localhost:8080/${category}`).then(res => res.json())
-    setnewsArray(data)
-  }
+  const getData = async (category, page) => {
+    if (!category || !page) return
+    let data = await fetch(
+      `http://localhost:8080/${category}?_page=${page}&_limit=9`
+    ).then((res) => res.json());
+    if (data?.length != undefined) setLoading(false);
+    if (!data) return
+    setnewsArray((prev) => [...prev, ...data]);
+    // console.log(data)
+  };
 
   useEffect(() => {
-    getData()
-  }, [category])
+    getData("general", page);
+    return () => { setPage(null); setCategory(null) }
+  }, [category, page]);
+
+  const userAtEnd = () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight) {
+      setPage(prev => prev + 1);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", userAtEnd);
+    return () => window.removeEventListener("scroll", userAtEnd);
+  }, [page]);
 
   return (
     <>
       <div>
         <Navinshorts setCategory={setCategory} category={category} />
-        <NewsContent newsArray={newsArray} />
+        {loading ? <div className="circular"><CircularProgress color="success" thickness={5} size={200} /> </div> : <NewsContent newsArray={newsArray} />}
         <Footer />
       </div>
     </>
