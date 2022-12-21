@@ -71,6 +71,7 @@ function App() {
         )}
         {page > 5 && !loading && (
           <div className="toast">You have all caught up ...!</div>
+        
         )}
         <Footer />
       </div>
