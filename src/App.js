@@ -19,7 +19,8 @@ function App() {
     ).then((res) => res.json());
     setTimeout(() => {
       if (data?.length !== undefined) setLoading(false);
-      setnewsArray((prev) => [...prev, ...data]);
+      if (page > 1) setnewsArray((prev) => [...prev, ...data]);
+      else setnewsArray((prev) => [...data]);
     }, 1000);
   };
 
@@ -41,17 +42,21 @@ function App() {
 
   useEffect(() => {
     window.addEventListener("scroll", userAtEnd);
-    setPage((prev) => prev + 1);
+    if (!page) setPage(1);
     return () => {
       setPage((prev) => prev - 1);
       window.removeEventListener("scroll", userAtEnd);
     };
-  }, [page]);
+  }, []);
 
   return (
     <>
       <div>
-        <Navinshorts setCategory={setCategory} setPage={setPage} category={category} />
+        <Navinshorts
+          setCategory={setCategory}
+          setPage={setPage}
+          category={category}
+        />
         {loading && page === 1 ? (
           <div className="circular">
             <CircularProgress color="success" thickness={5} size={200} />{" "}

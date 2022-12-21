@@ -32,6 +32,12 @@ export default function SwipeableTemporaryDrawer({
     setState({ ...state, [anchor]: open });
   };
 
+  const changeCategory = (category) => {
+    window.scrollTo(0,0);
+    setCategory(category);
+    setPage(1);
+  };
+
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 200 }}
@@ -48,10 +54,7 @@ export default function SwipeableTemporaryDrawer({
             <ListItem
               button
               key={text}
-              onClick={() => {
-                setCategory(text);
-                setPage(1);
-              }}
+              onClick={() => changeCategory(text)}
               style={{ height: "40px", borderRadius: "8px" }}
             >
               <ListItemText primary={text} />
