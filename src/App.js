@@ -32,10 +32,10 @@ function App() {
   };
 
   useEffect(() => {
-    setCategory("general");
+    if (!category) setCategory("general");
     getData(category, page);
     return () => {
-      setCategory(null);
+      setCategory((prev) => prev);
     };
   }, [category, page]);
 
@@ -51,7 +51,7 @@ function App() {
   return (
     <>
       <div>
-        <Navinshorts setCategory={setCategory} category={category} />
+        <Navinshorts setCategory={setCategory} setPage={setPage} category={category} />
         {loading && page === 1 ? (
           <div className="circular">
             <CircularProgress color="success" thickness={5} size={200} />{" "}
