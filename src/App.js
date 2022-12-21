@@ -8,44 +8,65 @@ import NewsContent from "./Components/NewsContent/NewsContent";
 function App() {
   const [category, setCategory] = useState(null);
   const [newsArray, setnewsArray] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const getData = async (category, page) => {
-    if (!category || !page) return
+    if (!category || !page || page > 5) return;
+    setLoading(true);
     let data = await fetch(
       `http://localhost:8080/${category}?_page=${page}&_limit=9`
     ).then((res) => res.json());
-    if (data?.length != undefined) setLoading(false);
-    if (!data) return
-    setnewsArray((prev) => [...prev, ...data]);
-    // console.log(data)
+    setTimeout(() => {
+      if (data?.length !== undefined) setLoading(false);
+      setnewsArray((prev) => [...prev, ...data]);
+    }, 1000);
   };
 
-  useEffect(() => {
-    getData("general", page);
-    return () => { setPage(null); setCategory(null) }
-  }, [category, page]);
-
   const userAtEnd = () => {
-    const scrollTop = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight >= scrollHeight) {
-      setPage(prev => prev + 1);
+    if (page > 5) return;
+    if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight) {
+      setPage((prev) => prev + 1);
+      console.log({ page, msg: "end" });
     }
   };
 
   useEffect(() => {
+    setCategory("general");
+    getData(category, page);
+    return () => {
+      setCategory(null);
+    };
+  }, [category, page]);
+
+  useEffect(() => {
     window.addEventListener("scroll", userAtEnd);
-    return () => window.removeEventListener("scroll", userAtEnd);
+    setPage((prev) => prev + 1);
+    return () => {
+      setPage((prev) => prev - 1);
+      window.removeEventListener("scroll", userAtEnd);
+    };
   }, [page]);
 
   return (
     <>
       <div>
         <Navinshorts setCategory={setCategory} category={category} />
-        {loading ? <div className="circular"><CircularProgress color="success" thickness={5} size={200} /> </div> : <NewsContent newsArray={newsArray} />}
+        {loading && page === 1 ? (
+          <div className="circular">
+            <CircularProgress color="success" thickness={5} size={200} />{" "}
+          </div>
+        ) : (
+          <NewsContent newsArray={newsArray} />
+        )}
+        {loading && page > 1 && (
+          <div className="bottom-loader">
+            <CircularProgress color="success" size={100} />{" "}
+          </div>
+        )}
+        {page > 5 && !loading && (
+          <div className="toast">You have all caught up ...!</div>
+        )}
         <Footer />
       </div>
     </>

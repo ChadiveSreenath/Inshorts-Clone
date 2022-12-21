@@ -1,13 +1,36 @@
 a:link,
 a:visited,
 a:hover,
-a:active{
-    text-decoration: none;
-    color: inherit;
+a:active {
+  text-decoration: none;
+  color: inherit;
 }
-.circular{
+.circular {
+  display: flex;
+  justify-content: center;
+  margin-top: 6rem;
+  margin-bottom: 70px;
+}
+.bottom-loader {
+  display: flex;
+  justify-content: center;
+}
+
+.toast{
+    width:70%;
     display: flex;
     justify-content: center;
-    margin-top: 6rem;
-    margin-bottom: 70px;
+    align-items: center;
+    padding: 20px 0;
+    background-color: orangered;
+    border-radius: 5px;
+    margin: 0 auto 20px auto;
+}
+
+@media (max-width:767px){
+    .toast{
+        width:90%;
+        margin: 10px auto;
+        padding: 10px 0 ;
+    }
 }
