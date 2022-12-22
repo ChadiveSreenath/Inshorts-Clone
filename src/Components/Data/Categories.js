@@ -1,11 +1,12 @@
 const Categories = [
     "business",
     "entertainment",
-    "general",
-    "health",
     "science",
     "sports",
     "technology",
+    "general",
+    "health",
+ 
 ]
 
 export default Categories
