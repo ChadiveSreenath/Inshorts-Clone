@@ -14,16 +14,15 @@ const Footer = () => {
 
             <div className="iconContainer">
                 {/* eslint-disable-next-line */}
-                <a href="https://www.linkedin.com/in/sreenath-chadive-542762192/" target="__blank">
+                <a href="https://www.linkedin.com/in/sreenath-chadive-542762192/" target="_self">
                     <i className="fab fa-linkedin fa-2x"></i>
                 </a>
-                <a href="https://www.instagram.com/sreenath_s6/" target="_blank">
+                <a href="https://www.instagram.com/sreenath_s6/" target="_self">
                     <i className="fab fa-instagram-square fa-2x"></i>
                 </a>
-                <a href="https://github.com/ChadiveSreenath" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/ChadiveSreenath" target="_self" rel="noopener noreferrer">
                     <i className="fas fa-link fa-2x"></i>
                 </a>
-
             </div>
 
         </div>

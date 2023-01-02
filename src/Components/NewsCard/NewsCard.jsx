@@ -4,7 +4,7 @@ import "./NewsCard.css"
 const NewsCard = ({ newsItem }) => {
 
 
-    const fulldate = new Date(newsItem.publishedAt)
+    const fulldate = new Date()
     var date = fulldate.toString().split(" ")
     const hour = parseInt(date[4].substring(0, 2))
     const time = hour > 12 ? true : false
